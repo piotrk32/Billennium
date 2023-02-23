@@ -13,3 +13,7 @@ Arkadiusz Ugniewski
 Bartosz Biedrzycki 
 - email: bartosz.b2468@gmail.com
 - rola: backend
+
+Technologie:
+- Java (backend)
+- Angular (forntend)
