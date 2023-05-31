@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.model.Task;
 import com.example.model.TaskDTO;
 import com.example.service.TaskService;
+import com.example.service.TaskServiceImplementation;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,6 +64,18 @@ public class TaskController {
             }
         } catch (Exception e) {
             return errorResponse();
+        }
+    }
+
+    @GetMapping("/{taskId}/progress")
+    public ResponseEntity<Integer> getTaskProgress(@PathVariable Long taskId) {
+        try {
+            int progress = taskService.getTaskProgress(taskId);
+            return ResponseEntity.ok(progress);
+        } catch (TaskServiceImplementation.TaskNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 

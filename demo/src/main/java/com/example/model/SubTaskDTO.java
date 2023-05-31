@@ -15,4 +15,5 @@ public class SubTaskDTO {
     private String description;
     private SubTaskStatus status;
     private Long taskId;
+    private Long userId;
 }

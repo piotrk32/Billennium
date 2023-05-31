@@ -25,10 +25,10 @@ public class KanbanApplication {
 //    ) {
 //        return args -> {
 //            var admin = RegisterRequest.builder()
-//                    .firstname("Admin")
-//                    .lastname("Admin")
-//                    .email("admin@mail.com")
-//                    .password("password")
+//                    .firstname("Admin4")
+//                    .lastname("Admin4")
+//                    .email("admin4@mail.com")
+//                    .password("password4")
 //                    .role(ADMIN)
 //                    .build();
 //            System.out.println("Admin token: " + service.register(admin).getAccessToken());

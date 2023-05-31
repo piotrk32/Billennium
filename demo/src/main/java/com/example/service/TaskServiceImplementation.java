@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.example.model.*;
 import com.example.repository.ColumnKanbanRepository;
+import com.example.repository.RowKanbanRepository;
 import com.example.repository.TaskRepository;
 import com.example.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ public class TaskServiceImplementation implements TaskService {
     private final TaskRepository taskRepository;
     private final ColumnKanbanRepository columnKanbanRepository;
     private final UserRepository userRepository;
+    private final RowKanbanRepository rowKanbanRepository;
 
     @Override
     @Transactional
@@ -37,6 +39,29 @@ public class TaskServiceImplementation implements TaskService {
     @Transactional
     public Optional<Task> getTaskByTitle(String title) {
         return taskRepository.findByTaskTitle(title);
+    }
+
+
+    @Override
+    @Transactional
+    public int getTaskProgress(Long taskId) {
+        Task task = taskRepository.findById(taskId)
+                .orElseThrow(() -> new TaskNotFoundException("Task not found with id: " + taskId));
+
+        List<SubTask> subtasks = task.getSubTasks();
+
+
+        if (subtasks.isEmpty()) {
+            return 0; // Jeśli brak subtasków, postęp wynosi 0%
+        }
+
+        long completedSubtasks = subtasks.stream()
+                .filter(subtask -> subtask.getStatus() == SubTaskStatus.DONE)
+                .count();
+
+        int progress = (int) ((completedSubtasks * 100.0) / subtasks.size());
+
+        return progress;
     }
 
     @Override
@@ -71,9 +96,10 @@ public class TaskServiceImplementation implements TaskService {
         if (taskDTO.getColor() != null) {
             task.setColor(taskDTO.getColor());
         }
-//        if (taskDTO.getUserIds() != null){
-//            task.setUsers(taskDTO.getUserIds());
-//        }
+
+        if (taskDTO.getStatus() != null) {
+            task.setStatus(taskDTO.getStatus());
+        }
 
 
         if (taskDTO.getKanban_column_id() != null) {
@@ -82,6 +108,14 @@ public class TaskServiceImplementation implements TaskService {
                 return null;
             }
             task.setColumnKanban(optKanbanColumn.get());
+        }
+
+        if (taskDTO.getKanban_row_id() != null) {
+            Optional<RowKanban> optionalRowKanban = rowKanbanRepository.findById(taskDTO.getKanban_row_id());
+            if (!optionalRowKanban.isPresent()) {
+                return null;
+            }
+            task.setRowKanban(optionalRowKanban.get());
         }
 
         return task;
@@ -141,23 +175,30 @@ public class TaskServiceImplementation implements TaskService {
     //CONVERTING
     private Task convertDTOToTask(TaskDTO taskDTO) {
         Task task = new Task();
+//        Optional<Users> optUser = Optional.of(new Users());
         task.setTaskTitle(taskDTO.getTitle());
         task.setDescription(taskDTO.getDescription());
         task.setColor(taskDTO.getColor());
-
-        // do walidacji
-//        Optional<Users> optUser = userRepository.findById(taskDTO.getUserIds());
-//        if (!optUser.isPresent()) {
-//            throw new IllegalArgumentException("User with given id not exists.");
-//        }
-
-        //
+        task.setStatus(taskDTO.getStatus());
 //        task.setUsers((List<Users>) optUser.get());
+
+
+        Optional<RowKanban> optionalRowKanban = rowKanbanRepository.findById(taskDTO.getKanban_row_id());
+        if (!optionalRowKanban.isPresent())
+            throw new IllegalArgumentException("Row with given id not exists.");
+        task.setRowKanban(optionalRowKanban.get());
+
         Optional<ColumnKanban> optKanbanColumn = columnKanbanRepository.findById(taskDTO.getKanban_column_id());
         if (!optKanbanColumn.isPresent())
             throw new IllegalArgumentException("Column with given id not exists.");
         task.setColumnKanban(optKanbanColumn.get());
         return task;
+    }
+
+    public class TaskNotFoundException extends RuntimeException {
+        public TaskNotFoundException(String message) {
+            super(message);
+        }
     }
 }
 

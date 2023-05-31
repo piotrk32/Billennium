@@ -35,6 +35,9 @@ public class Users implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
+
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -42,11 +45,6 @@ public class Users implements UserDetails {
     //tocheck
     @Column(name = "task_limit")
     private Integer taskLimit;
-
-
-//    private List<Kanban> kanbanList;
-
-
 
 
     @JsonIgnore
@@ -65,17 +63,6 @@ public class Users implements UserDetails {
             FetchType.EAGER)
     @JsonIgnoreProperties("hibernateLazyInitializer")
     private List<Kanban> kanban;
-
-
-
-//    public void setKanban(Kanban kanban) {
-//        this.kanban = (List<Kanban>) kanban;
-//        kanban.getUsers().add(this); // dodanie użytkownika do listy użytkowników kanbanu
-//    }
-
-
-
-
 
 
     @Override

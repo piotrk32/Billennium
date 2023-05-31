@@ -1,9 +1,6 @@
 package com.example.service;
 
-import com.example.model.ColumnKanban;
-import com.example.model.RowKanban;
-import com.example.model.RowKanbanDTO;
-import com.example.model.Task;
+import com.example.model.*;
 import com.example.repository.RowKanbanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -86,6 +84,30 @@ public class RowKanbanServiceImplementation implements RowKanbanService {
             throw new IllegalArgumentException("RowKanban not found with id: " + id);
         }
     }
+
+    @Override
+    @Transactional
+    public RowKanban addNewTaskToRow(Long row_id, TaskDTO taskDTO) {
+        Optional<RowKanban> optionalRowKanban = rowKanbanRepository.findById(row_id);
+        if (optionalRowKanban.isPresent()) {
+            RowKanban rowKanban = optionalRowKanban.get();
+            rowKanban.addTaskToRow(convertDTOToTask(taskDTO));
+            return rowKanbanRepository.save(rowKanban);
+        } else {
+            // Obsłuż brak wiersza Kanban z podanym ID, np. zgłoś wyjątek
+            throw new NoSuchElementException("RowKanban with ID: " + row_id + " not found.");
+        }
+    }
+    private Task convertDTOToTask(TaskDTO taskDTO) {
+        Task task = new Task();
+        task.setTaskTitle(taskDTO.getTitle());
+        task.setDescription(taskDTO.getDescription());
+        task.setColor(taskDTO.getColor());
+        task.setSubTasks(taskDTO.getSubTasks());
+        return task;
+    }
+
+
 
     private RowKanban convertDTOToRow(RowKanbanDTO rowKanbanDTO) {
         RowKanban rowKanban = new RowKanban();

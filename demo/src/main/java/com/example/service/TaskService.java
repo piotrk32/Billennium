@@ -22,5 +22,7 @@ public interface TaskService {
     Task assignUserToTask(Long taskId, Long userId);
 
     Task unassignUserFromTask(Long taskId);
+
+    int getTaskProgress(Long taskId);
 }
 

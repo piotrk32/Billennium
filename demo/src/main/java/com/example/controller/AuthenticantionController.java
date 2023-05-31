@@ -1,9 +1,6 @@
 package com.example.controller;
 
-import com.example.security.auth.AuthenticationRequest;
-import com.example.security.auth.AuthenticationResponse;
-import com.example.security.auth.AuthenticationService;
-import com.example.security.auth.RegisterRequest;
+import com.example.security.auth.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,26 +24,25 @@ public class AuthenticantionController {
 
     }
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> register(
+    public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest request
 
     ) {
         return ResponseEntity.ok(service.authenticate(request));
     }
 
-//    @GetMapping("/")
-//
-//    public ResponseEntity<?> getAllUsers(){
-//        try {
-//            return new ResponseEntity<>(
-//                    service.getAllUsers(),
-//                    HttpStatus.OK);
-//        } catch (Exception e) {
-//            return errorResponse();
+//    @PostMapping("/api/login")
+//    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+//        // Sprawdź poprawność danych logowania
+//        if (service.authenticate(loginRequest.getEmail(), loginRequest.getPassword())) {
+//            // Generuj token JWT
+//            String token = generateToken(loginRequest.getUsername());
+//            return ResponseEntity.ok(new LoginResponse(token));
+//        } else {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Nieprawidłowe dane logowania.");
 //        }
 //    }
-//
-//    private ResponseEntity<String> errorResponse(){
-//        return new ResponseEntity<>("Something went wrong :(", HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
+
+
+
 }

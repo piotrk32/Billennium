@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.model.SubTask;
 import com.example.model.SubTaskDTO;
 import com.example.model.Task;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;

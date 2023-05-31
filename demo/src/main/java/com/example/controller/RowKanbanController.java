@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.model.RowKanban;
 import com.example.model.RowKanbanDTO;
+import com.example.model.TaskDTO;
 import com.example.service.RowKanbanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -55,6 +56,20 @@ public class RowKanbanController {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/{rowId}/addTask")
+    public ResponseEntity<?> addTaskToRow(@PathVariable Long rowId, @RequestBody TaskDTO taskDTO) {
+        try {
+            RowKanban rowKanban = rowKanbanService.addNewTaskToRow(rowId, taskDTO);
+            if (rowKanban != null) {
+                return new ResponseEntity<>(rowKanban, HttpStatus.CREATED);
+            } else {
+                return new ResponseEntity<>("Could not add task to row with id: " + rowId, HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("Something went wrong :(", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

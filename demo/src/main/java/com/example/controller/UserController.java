@@ -6,6 +6,7 @@ import com.example.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -81,26 +82,9 @@ public class UserController {
         return ResponseEntity.ok(userTasks);
     }
 
-    @PostMapping("/{userId}/tasks")
-    public ResponseEntity<TaskDTO> addUserTask(@PathVariable Long userId, @RequestBody TaskDTO taskDTO) {
-        TaskDTO addedTask = userService.addUserTask(userId, taskDTO);
-        return ResponseEntity.ok(addedTask);
-    }
-
-//    @PutMapping("/{userId}/tasks/{taskId}")
-//    public ResponseEntity<TaskDTO> updateUserTask(@PathVariable Long userId, @PathVariable Long taskId, @RequestBody TaskDTO taskDTO) {
-//        TaskDTO updatedTask = userService.updateUser(userId, taskId, taskDTO);
-//        return ResponseEntity.ok(updatedTask);
-//    }
-
-//    @DeleteMapping("/{userId}/tasks/{taskId}")
-//    public ResponseEntity<Void> deleteUserTask(@PathVariable Long userId, @PathVariable Long taskId) {
-//        userService.deleteUserTask(userId, taskId);
-//        return ResponseEntity.noContent().build();
-//    }
-
+    @Transactional
     @PutMapping("/{userId}/taskLimit")
-    public ResponseEntity<?> setTaskLimit(@PathVariable Long userId, @RequestParam int limit) {
+    public ResponseEntity<?> setTaskLimit(@PathVariable Long userId, @RequestParam Integer limit) {
         try {
             userService.setUserLimitTask(userId, limit);
             return ResponseEntity.ok("Task limit set successfully.");

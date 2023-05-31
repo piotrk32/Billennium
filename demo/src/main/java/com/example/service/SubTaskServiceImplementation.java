@@ -6,7 +6,6 @@ import com.example.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +34,7 @@ public class SubTaskServiceImplementation implements SubTaskService {
     public Optional<SubTask> getSubTaskById(Long id) {
         return subTaskRepository.findById(id);
     }
+
     @Override
     @Transactional
     public void deleteSubTask(SubTask subTask) {
@@ -65,6 +65,13 @@ public class SubTaskServiceImplementation implements SubTaskService {
                 return null;
             }
             subTask.setTask(optSubTask.get().getTask());
+        }
+        if (subTaskDTO.getUserId() != null){
+            Optional<SubTask> optSubTask = subTaskRepository.findById(subTaskDTO.getUserId());
+            if (!optSubTask.isPresent()) {
+                return null;
+            }
+
         }
 
         return subTask;
@@ -104,7 +111,5 @@ public class SubTaskServiceImplementation implements SubTaskService {
         subTask.setTask(task);
         return subTaskRepository.save(subTask);
     }
-
-
 
 }

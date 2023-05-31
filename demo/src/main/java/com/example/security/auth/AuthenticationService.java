@@ -24,6 +24,7 @@ import static com.example.repository.UserRepository.*;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
+
     private final UserRepository repository;
     private final TokenRepository tokenRepository;
     private final PasswordEncoder passwordEncoder;

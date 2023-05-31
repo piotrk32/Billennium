@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.model.RowKanban;
 import com.example.model.RowKanbanDTO;
 import com.example.model.Task;
+import com.example.model.TaskDTO;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -26,4 +27,7 @@ public interface RowKanbanService {
 
     @Transactional
     void deleteRow(Long id);
+
+    @Transactional
+    RowKanban addNewTaskToRow(Long row_id, TaskDTO taskDTO);
 }

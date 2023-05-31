@@ -18,9 +18,9 @@ public class TaskDTO {
     private String title;
     private String description;
     private String color;
+    private String status;
     private List <Long> userIds;
     private List<SubTask> subTasks;
-    private Integer limitTask;
 
 
 }

@@ -61,7 +61,6 @@ public class UserServiceImplementation implements UserService {
             users.setLastName(usersDTO.getLastName());
 //            users.setKanban(usersDTO.getKanbanIds());
             users.setTaskLimit(usersDTO.getTaskLimit());
-            // Set other properties from UserDTO to User
             return userRepository.save(users);
         } else {
             throw new RuntimeException("User not found with id: " + id);
@@ -108,30 +107,6 @@ public class UserServiceImplementation implements UserService {
     }
 
 
-//    @Override
-//    @Transactional
-//    public TaskDTO updateUserTask(Long userId, Long taskId, TaskDTO taskDTO) {
-//        Users users = userRepository.findById(userId)
-//                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
-//        Task task = taskRepository.findById(taskId)
-//                .orElseThrow(() -> new RuntimeException("Task not found with id: " + taskId));
-//        if (task.getUsers().getId().equals(userId)) {
-//            task.setTaskTitle(taskDTO.getTitle());
-//            task.setDescription(taskDTO.getDescription());
-//            task.setColor(taskDTO.getColor());
-//            taskRepository.save(task);
-//
-////            if (users.getTasks().size() > users.getTaskLimit()) {
-////                // Jeśli limit przekroczony, zmiana koloru kolumny na czerwony
-////                ColumnKanban column = task.getColumnKanban();
-////                column.setColorColumn("red");
-////                columnKanbanRepository.save(column);
-////            }
-//        } else {
-//            throw new RuntimeException("Task not assigned to user with id: " + userId);
-//        }
-//        return taskDTO;
-//    }
 
 //    @Override
 //    @Transactional
@@ -159,9 +134,9 @@ public class UserServiceImplementation implements UserService {
         Users user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
 
-        Integer userLimit = user.getTaskLimit();
-        // null nieskonczonosc
-        user.setTaskLimit(userLimit);
+//        Integer userLimit = user.getTaskLimit();
+//        // null nieskonczonosc
+        user.setTaskLimit(limit);
 
         userRepository.save(user);
     }
@@ -191,12 +166,6 @@ public class UserServiceImplementation implements UserService {
         task.setDescription(taskDTO.getDescription());
         task.setColor(taskDTO.getColor());
         task.setSubTasks(taskDTO.getSubTasks());
-
-//        Optional<Users> optUser = userRepository.findById(taskDTO.getUserIds());
-//        if (!optUser.isPresent()) {
-//            throw new IllegalArgumentException("User with given id not exists.");
-//        }
-//        task.setUsers(optUser.get());
         
         Optional<ColumnKanban> optKanbanColumn = columnKanbanRepository.findById(taskDTO.getKanban_column_id());
         if (!optKanbanColumn.isPresent())

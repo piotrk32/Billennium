@@ -58,6 +58,7 @@ public class Kanban {
     @ToString.Exclude
     private List<Users> users;
 
+
     public void addColumn(ColumnKanban columnKanban) {
         if (Objects.isNull(columnsKanban)) {
             columnsKanban = new ArrayList<>();

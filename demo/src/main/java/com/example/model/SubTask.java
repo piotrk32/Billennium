@@ -31,6 +31,8 @@ public class SubTask {
 
 
 
+
+
     @JsonIgnore
     @JsonBackReference
     @ToString.Exclude
@@ -38,8 +40,11 @@ public class SubTask {
     @JoinColumn(name = "task_id")
     private Task task;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private SubTaskStatus status;
+
+
 
 
 }

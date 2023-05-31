@@ -35,6 +35,9 @@ public class Task {
     @Column(name = "color")
     private String color;
 
+    @Column(name = "status")
+    private String status;
+
 
 //KOLUMNA
     @JsonIgnore
@@ -53,7 +56,7 @@ public class Task {
     private RowKanban rowKanban;
 
 //USER
-    @JsonIgnore
+//    @JsonIgnore
     @JsonBackReference
     @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -65,5 +68,40 @@ public class Task {
     @OneToMany(mappedBy = "task", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SubTask> subTasks = new ArrayList<>();
 
+    //TASK Progress
+    private Integer progress;
+
+
+    public int taskProgress(Task task) {
+        List<SubTask> subtasks = task.getSubTasks();
+
+        if (subtasks.isEmpty()) {
+            return 0; // Brak postępu
+        }
+
+        int completedSubtasks = 0;
+        for (SubTask subtask : subtasks) {
+            if (subtask.getStatus() == SubTaskStatus.DONE) {
+                completedSubtasks++;
+            }
+        }
+
+        if (completedSubtasks == subtasks.size()) {
+            return 100; // Ukończony postęp
+        }
+
+        progress = calculateProgress(completedSubtasks, subtasks.size());
+        return progress;
+    }
+
+    private int calculateProgress(int completedSubtasks, int totalSubtasks) {
+        if (totalSubtasks == 0) {
+            return 0; // Brak subtasków, postęp wynosi 0%
+        }
+
+        return (completedSubtasks * 100) / totalSubtasks;
+    }
+
 
 }
+
