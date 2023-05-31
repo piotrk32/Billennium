@@ -59,7 +59,7 @@ public class Task {
 //    @JsonIgnore
     @JsonBackReference
     @ToString.Exclude
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "tasks", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Users> users;
 
 //SUBTASK
@@ -69,6 +69,7 @@ public class Task {
     private List<SubTask> subTasks = new ArrayList<>();
 
     //TASK Progress
+    @Transient
     private Integer progress;
 
 

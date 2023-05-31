@@ -7,6 +7,7 @@ import com.example.service.RowKanbanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -70,6 +71,16 @@ public class RowKanbanController {
             }
         } catch (Exception e) {
             return new ResponseEntity<>("Something went wrong :(", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @Transactional
+    @PutMapping("/{rowId}/taskLimit")
+    public ResponseEntity<?> setTaskLimit(@PathVariable Long rowId, @RequestParam Integer limit) {
+        try {
+            rowKanbanService.setRowLimitTask(rowId, limit);
+            return ResponseEntity.ok("Task limit set successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to set task limit.");
         }
     }
 }

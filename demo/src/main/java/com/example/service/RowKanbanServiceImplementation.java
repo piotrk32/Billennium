@@ -94,10 +94,22 @@ public class RowKanbanServiceImplementation implements RowKanbanService {
             rowKanban.addTaskToRow(convertDTOToTask(taskDTO));
             return rowKanbanRepository.save(rowKanban);
         } else {
-            // Obsłuż brak wiersza Kanban z podanym ID, np. zgłoś wyjątek
             throw new NoSuchElementException("RowKanban with ID: " + row_id + " not found.");
         }
     }
+
+
+    @Override
+    @Transactional
+    public void setRowLimitTask(Long rowId, Integer limit) {
+        RowKanban rowKanban = rowKanbanRepository.findById(rowId)
+                .orElseThrow(() -> new IllegalArgumentException("Row not found with id: " + rowId));
+//        // null nieskonczonosc
+        rowKanban.setTaskLimit(limit);
+
+        rowKanbanRepository.save(rowKanban);
+    }
+
     private Task convertDTOToTask(TaskDTO taskDTO) {
         Task task = new Task();
         task.setTaskTitle(taskDTO.getTitle());

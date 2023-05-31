@@ -133,8 +133,11 @@ public class KanbanServiceImplementation implements KanbanService {
             if (existingColumn.isPresent()) {
                 throw new IllegalArgumentException("Column with title '" + columnTitle + "' already exists.");
             }
+            ColumnKanban columnKanban = convertDTOToColumn(columnKanbanDTO);
+            columnKanban.setKanban(kanban);
 
-            kanban.addColumn(convertDTOToColumn(columnKanbanDTO));
+            kanban.addColumn(columnKanban);
+//            columnKanbanRepository.save(convertDTOToColumn(c));
             return kanbanRepository.save(kanban);
         } else {
             throw new EntityNotFoundException("Kanban not found with id: " + kanbanId);
@@ -181,6 +184,12 @@ public class KanbanServiceImplementation implements KanbanService {
         ColumnKanban columnKanban = new ColumnKanban();
         columnKanban.setColumnTitle(columnKanbanDTO.getColumnTitle());
         columnKanban.setId(columnKanbanDTO.getId());
+        Optional<ColumnKanban> optionalColumnKanban = columnKanbanRepository.findByColumnTitle(columnKanbanDTO.getColumnTitle());
+//        if (optionalColumnKanban.isPresent()) {
+//            throw new IllegalArgumentException("Column with title '" + columnKanbanDTO.getColumnTitle() + "' already exists.");
+//        }
+//
+//        columnKanban.setKanban();
         return columnKanban;
     }
 

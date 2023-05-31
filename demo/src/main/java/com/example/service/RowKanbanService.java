@@ -30,4 +30,7 @@ public interface RowKanbanService {
 
     @Transactional
     RowKanban addNewTaskToRow(Long row_id, TaskDTO taskDTO);
+
+    @Transactional
+    void setRowLimitTask(Long rowId, Integer limit);
 }

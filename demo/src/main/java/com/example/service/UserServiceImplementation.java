@@ -142,10 +142,6 @@ public class UserServiceImplementation implements UserService {
     }
 
 
-
-
-
-
     //CONVERTING
 
     private Users convertUserDTOtoUser(UsersDTO usersDTO) {
@@ -182,7 +178,6 @@ public class UserServiceImplementation implements UserService {
             taskDTO.setDescription(task.getDescription());
             taskDTO.setColor(task.getColor());
             taskDTO.setSubTasks(task.getSubTasks());
-//            taskDTO.setUserIds(task.getUsers().getUserById()));
             taskDTO.setKanban_column_id(task.getColumnKanban().getId());
             taskDTOs.add(taskDTO);
         }
