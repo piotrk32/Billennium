@@ -17,7 +17,6 @@ public class ColumnKanbanDTO {
     @JsonIgnore
     private List<TaskDTO> taskDTOList;
 
-
     public List<TaskDTO> getTaskList() {
         return taskDTOList;
     }

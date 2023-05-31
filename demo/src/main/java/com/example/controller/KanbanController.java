@@ -15,7 +15,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/test/")
 @RequiredArgsConstructor
-//@PreAuthorize("hasRole('ADMIN')")// do autoryzacji
 @CrossOrigin(origins = "http://localhost:8080")
 public class KanbanController {
     private final KanbanService kanbanService;
@@ -193,7 +192,6 @@ public class KanbanController {
         }
     }
 
-
     @PostMapping("/{kanbanId}/removeUser/{userId}")
     public ResponseEntity<?> removeUserFromKanban(@PathVariable Long kanbanId, @PathVariable Long userId) {
         try {
@@ -224,9 +222,6 @@ public class KanbanController {
     }
 
 
-
-
-
     private ResponseEntity<String> errorResponse(){
         return new ResponseEntity<>("Something went wrong :(", HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -251,8 +246,6 @@ public class KanbanController {
         UsersDTO usersDTO = new UsersDTO();
         usersDTO.setId(users.getId());
         usersDTO.setFirstName(users.getUsername());
-//        usersDTO.setPassword(users.getPassword());
-        // Set other properties from User to UserDTO
         return usersDTO;
     }
 
@@ -260,7 +253,6 @@ public class KanbanController {
         KanbanDTO kanbanDTO = new KanbanDTO();
         kanbanDTO.setId(kanban.getId());
         kanbanDTO.setKanbanTitle(kanban.getKanbanTitle());
-        // Set other properties from Kanban to KanbanDTO, including lists of columns and users
         return kanbanDTO;
     }
 

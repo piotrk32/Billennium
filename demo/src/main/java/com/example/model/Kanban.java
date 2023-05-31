@@ -44,9 +44,6 @@ public class Kanban {
     @OneToMany(mappedBy = "kanbanId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RowKanban> rowsKanban;
 
-
-
-
      //Dodanie listy użytkowników powiązanych z kanbanem
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(

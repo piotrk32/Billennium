@@ -126,7 +126,6 @@ public class RowKanbanServiceImplementation implements RowKanbanService {
         rowKanban.setRowTitle(rowKanbanDTO.getRowTitle());
         rowKanban.setTaskLimit(rowKanbanDTO.getTaskLimit());
         rowKanban.setKanbanId(rowKanbanDTO.getKanbanId());
-        // Set other properties of rowKanban from rowKanbanDTO if needed
         return rowKanban;
     }
 }

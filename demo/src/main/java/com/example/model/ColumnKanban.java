@@ -32,7 +32,7 @@ public class ColumnKanban {
 
     @Column(name = "column_title", unique = true)
     private String columnTitle;
-//KOLOR
+
     @Column(name = "color_column")
     private String colorColumn = "DEFAULT";
 
@@ -57,8 +57,6 @@ public class ColumnKanban {
     public List<Task> getTaskList() {
         return tasks;
     }
-
-
 
 
 }

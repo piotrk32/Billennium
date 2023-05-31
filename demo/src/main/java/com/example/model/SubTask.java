@@ -29,10 +29,6 @@ public class SubTask {
     @Column(name = "description")
     private String description;
 
-
-
-
-
     @JsonIgnore
     @JsonBackReference
     @ToString.Exclude

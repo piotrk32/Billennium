@@ -106,28 +106,6 @@ public class UserServiceImplementation implements UserService {
         return taskDTO;
     }
 
-
-
-//    @Override
-//    @Transactional
-//    public void deleteUserTask(Long userId, Long taskId) {
-//        Users users = userRepository.findById(userId)
-//                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
-//        Task task = taskRepository.findById(taskId)
-//                .orElseThrow(() -> new RuntimeException("Task not found with id: " + taskId));
-//        if (task.getUsers().get(userId).equals(userId)) {
-//            taskRepository.delete(task);
-////            if (users.getTasks().size() <= users.getTaskLimit()) {
-////                // Jeśli ilość zadań wróciła poniżej lub równa limitowi, przywrócenie koloru kolumny
-////                ColumnKanban column = task.getColumnKanban();
-////                column.setColumnTitle("default");
-////                columnKanbanRepository.save(column);
-////            }
-//        } else {
-//            throw new RuntimeException("Task not assigned to user with id: " + userId);
-//        }
-//    }
-
     @Override
     @Transactional
     public void setUserLimitTask(Long userId, Integer limit) {

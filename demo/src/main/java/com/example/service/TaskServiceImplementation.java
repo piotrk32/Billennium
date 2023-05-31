@@ -175,13 +175,10 @@ public class TaskServiceImplementation implements TaskService {
     //CONVERTING
     private Task convertDTOToTask(TaskDTO taskDTO) {
         Task task = new Task();
-//        Optional<Users> optUser = Optional.of(new Users());
         task.setTaskTitle(taskDTO.getTitle());
         task.setDescription(taskDTO.getDescription());
         task.setColor(taskDTO.getColor());
         task.setStatus(taskDTO.getStatus());
-//        task.setUsers((List<Users>) optUser.get());
-
 
         Optional<RowKanban> optionalRowKanban = rowKanbanRepository.findById(taskDTO.getKanban_row_id());
         if (!optionalRowKanban.isPresent())

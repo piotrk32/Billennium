@@ -114,8 +114,6 @@ public class ColumnKanbanServiceImplementation implements ColumnKanbanService {
             }
     }
 
-
-
     // Update tasks list
     if (columnKanbanDTO.getTaskDTOList() != null) {
         List<Task> tasks = columnKanbanDTO.getTaskDTOList().stream()
