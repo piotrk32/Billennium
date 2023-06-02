@@ -115,12 +115,12 @@ public class ColumnKanbanServiceImplementation implements ColumnKanbanService {
     }
 
     // Update tasks list
-    if (columnKanbanDTO.getTaskDTOList() != null) {
-        List<Task> tasks = columnKanbanDTO.getTaskDTOList().stream()
-                .map(taskDTO -> convertDTOToTask(taskDTO))
-                .collect(Collectors.toList());
-        columnKanban.setTasks(tasks);
-    }
+//    if (columnKanbanDTO.getTaskDTOList() != null) {
+//        List<Task> tasks = columnKanbanDTO.getTaskDTOList().stream()
+//                .map(taskDTO -> convertDTOToTask(taskDTO))
+//                .collect(Collectors.toList());
+//        columnKanban.setTasks(tasks);
+//    }
 
     return columnKanban;
 }
@@ -132,11 +132,11 @@ public class ColumnKanbanServiceImplementation implements ColumnKanbanService {
             throw new RuntimeException("Kanban not found with id: " + columnKanbanDTO.getKanbanId());
         }
         columnKanban.setKanban(optionalKanban.get());
-        //CHECK
-        List<Task> tasks = columnKanbanDTO.getTaskList().stream()
-                .map(this::convertDTOToTask) // Assuming you have a method to convert TaskDTO to Task
-                .collect(Collectors.toList());
-        columnKanban.setTasks(tasks);
+//        //CHECK
+//        List<Task> tasks = columnKanbanDTO.getTaskList().stream()
+//                .map(this::convertDTOToTask) // Assuming you have a method to convert TaskDTO to Task
+//                .collect(Collectors.toList());
+//        columnKanban.setTasks(tasks);
         return columnKanban;
     }
 

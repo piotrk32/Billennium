@@ -25,9 +25,9 @@ public class KanbanApplication {
 //    ) {
 //        return args -> {
 //            var admin = RegisterRequest.builder()
-//                    .firstname("Admin4")
-//                    .lastname("Admin4")
-//                    .email("admin4@mail.com")
+//                    .firstname("Admin5")
+//                    .lastname("Admin5")
+//                    .email("admin5@mail.com")
 //                    .password("password4")
 //                    .role(ADMIN)
 //                    .build();

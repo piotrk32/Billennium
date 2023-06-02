@@ -14,12 +14,12 @@ public class ColumnKanbanDTO {
     private Long kanbanId;
     private String columnTitle;
     private String columnColor;
-    @JsonIgnore
-    private List<TaskDTO> taskDTOList;
-
-    public List<TaskDTO> getTaskList() {
-        return taskDTOList;
-    }
+//    @JsonIgnore
+//    private List<TaskDTO> taskDTOList;
+//
+//    public List<TaskDTO> getTaskList() {
+//        return taskDTOList;
+//    }
 
 }
 
