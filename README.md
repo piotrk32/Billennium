@@ -34,5 +34,6 @@ Uruchomienie aplikacji
 5. Baza danych zostanie wygenerowana automatycznie po uruchomieniu aplikacji jeśli mamy skonfugurowane połączenie.
 6. Po uruchomieniu aplikacji zostanie wygenerowany token
 7. Uruchamiamy postmana
-8. Wprowadzamy doken do Auth w postmanie aby żądanie mogło byc prawidłowo obsłużone
-9. Wprowadzamy żądane parametry dla danego endpointu w kontrolerze.
+8. Wprowadzamy doken do Auth w postmanie aby żądanie mogło byc prawidłowo obsłużone(token wygenerowany jest w konsoli oraz w bazie danych, przed ponownym wystartowaniem aplikacji należy zakomentować Bean 
+  z klasy KanbanApplication lub usunąć token oraz użytkownika z bazy danych).
+10. Wprowadzamy żądane parametry dla danego endpointu w kontrolerze.
