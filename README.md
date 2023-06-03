@@ -16,4 +16,4 @@ Bartosz Biedrzycki
 
 Technologie:
 - Java (backend)
-- Angular (forntend)
+- Angular (frontend)
